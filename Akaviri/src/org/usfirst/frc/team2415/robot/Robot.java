@@ -3,10 +3,12 @@ package org.usfirst.frc.team2415.robot;
 
 import org.usfirst.frc.team2415.robot.subsystems.*;
 
+import org.usfirst.frc.team2415.robot.WiredCatGamepad;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,6 +22,11 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	
 	public static DriveSubsystem driveSubystem;
+	public static LauncherSubsystem launcherSubsystem;
+	
+	public static WiredCatGamepad gamepad;
+	
+	private Compressor compressor;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -28,7 +35,12 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		
+		gamepad = new WiredCatGamepad(0);
+		
+		compressor = new Compressor(RobotMap.PCM_ID);
+		
 		driveSubystem = new DriveSubsystem();
+		//launcherSubsystem = new LauncherSubsystem();
     }
 	
 	public void disabledPeriodic() {
