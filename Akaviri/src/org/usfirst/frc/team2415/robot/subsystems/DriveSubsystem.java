@@ -35,5 +35,13 @@ public class DriveSubsystem extends Subsystem {
     	leftTal.set(left);
     	rightTal.set(right);
     }
+    
+    public double getLeftTal(){
+    	return leftTal.get();
+    }
+    
+    public double getRightTal(){
+    	return rightTal.get();
+    }
 }
 

@@ -2,13 +2,13 @@
 package org.usfirst.frc.team2415.robot;
 
 import org.usfirst.frc.team2415.robot.subsystems.*;
-
 import org.usfirst.frc.team2415.robot.WiredCatGamepad;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -38,9 +38,15 @@ public class Robot extends IterativeRobot {
 		gamepad = new WiredCatGamepad(0);
 		
 		compressor = new Compressor(RobotMap.PCM_ID);
+		compressor.start();
 		
 		driveSubystem = new DriveSubsystem();
 		//launcherSubsystem = new LauncherSubsystem();
+		
+		SmartDashboard.putData(Scheduler.getInstance());
+		//SmartDashboard.putData("Accumulate Command", accumulateCommand);
+		//SmartDashboard.putData("Fire Command", fireCommand);
+		//SmartDashboard.putData("Resting Command", restingCommand);
     }
 	
 	public void disabledPeriodic() {

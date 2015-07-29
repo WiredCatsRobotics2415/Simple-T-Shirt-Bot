@@ -7,9 +7,9 @@ package org.usfirst.frc.team2415.robot;
  */
 public class RobotMap {
     public static final int LEFT_TALONS = 0;
-    public static final int RIGHT_TALONS = 0;
+    public static final int RIGHT_TALONS = 9;
     
-    public static final int ELEVATION_VICTOR = 0;
+    public static final int ELEVATION_VICTOR = 1;
     
     public static final int[] ACCUMULATE_SOLENOIDE_1 = {0,0};
     public static final int[] ACCUMULATE_SOLENOIDE_2 = {0,0};
@@ -31,5 +31,5 @@ public class RobotMap {
 										    	  FIRE_SOLENOIDE_3,
 										    	  FIRE_SOLENOIDE_4};
     
-    public static final int PCM_ID = 0;
+    public static final int PCM_ID = 20;
 }
