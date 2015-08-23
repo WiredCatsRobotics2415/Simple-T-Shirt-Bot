@@ -2,13 +2,14 @@
 package org.usfirst.frc.team2415.robot;
 
 import org.usfirst.frc.team2415.robot.subsystems.*;
+import org.usfirst.frc.team2415.robot.commands.launcher.*;
+import org.usfirst.frc.team2415.robot.subsystems.LauncherSubsystem.Solenoids;
 
-import org.usfirst.frc.team2415.robot.WiredCatGamepad;
-
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,7 +41,15 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor(RobotMap.PCM_ID);
 		
 		driveSubystem = new DriveSubsystem();
-		//launcherSubsystem = new LauncherSubsystem();
+		launcherSubsystem = new LauncherSubsystem();
+		
+		gamepad.rightTrigger.whenPressed(new FireCommand(Solenoids.ALL_FIRE));
+		gamepad.a_button.whenPressed(new FireCommand(Solenoids.BOT_RIGHT_FIRE));
+		gamepad.b_button.whenPressed(new FireCommand(Solenoids.TOP_RIGHT_FIRE));
+		gamepad.x_button.whenPressed(new FireCommand(Solenoids.BOT_LEFT_FIRE));
+		gamepad.y_button.whenPressed(new FireCommand(Solenoids.TOP_LEFT_FIRE));
+		
+		SmartDashboard.putData(Scheduler.getInstance());
     }
 	
 	public void disabledPeriodic() {

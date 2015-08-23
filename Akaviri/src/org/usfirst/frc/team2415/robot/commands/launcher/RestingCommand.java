@@ -9,13 +9,14 @@ import org.usfirst.frc.team2415.robot.Robot;
 public class RestingCommand extends Command {
 
     public RestingCommand() {
+        // Use requires() here to declare subsystem dependencies
     	requires(Robot.launcherSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.launcherSubsystem.accumulateOffAll();
-    	Robot.launcherSubsystem.fireOffAll();
+    	Robot.launcherSubsystem.closeFire();
+    	Robot.launcherSubsystem.closeAccu();
     }
 
     // Called repeatedly when this Command is scheduled to run
