@@ -6,85 +6,88 @@ import edu.wpi.first.wpilibj.Solenoid;
 import org.usfirst.frc.team2415.robot.RobotMap;
 import org.usfirst.frc.team2415.robot.commands.launcher.RestingCommand;
 
-import java.util.HashMap;
+import java.lang.Enum;
+
+import java.util.Enumeration;
+import java.util.Vector;
 /**
  *
  */
 public class LauncherSubsystem extends Subsystem {
 	
-	private Solenoid[][] aSoles, fSoles;
+	public enum Solenoids {	TOP_LEFT_FIRE, TOP_LEFT_ACCU,
+							TOP_RIGHT_FIRE, TOP_RIGHT_ACCU,
+							BOT_LEFT_FIRE, BOT_LEFT_ACCU,
+							BOT_RIGHT_FIRE, BOT_RIGHT_ACCU,
+							ALL_FIRE, ALL_ACCU
+	}
+	
+	private Solenoid[] fireSolenoids;
+	private Solenoid[] accuSolenoids;
 	
 	public LauncherSubsystem(){
-		aSoles = new Solenoid[4][2];
-		fSoles = new Solenoid[4][2];
+		fireSolenoids = accuSolenoids = new Solenoid[4];
 		
-		for(int i=0;i<4;i++){
-			for(int j=0;j<2;j++){
-				aSoles[i][j] =  new Solenoid(RobotMap.ACCUMULATE_SOLENOIDS[i][j]);
-			}
-			aSoles[i][0].set(true);
-			aSoles[i][1].set(false);
-		}
-		
-		for(int i=0;i<4;i++){
-			for(int j=0;j<2;j++){
-				fSoles[i][j] =  new Solenoid(RobotMap.FIRE_SOLENOIDS[i][j]);
-			}
-			fSoles[i][0].set(true);
-			fSoles[i][1].set(false);
+		for(int i=0; i<4; i++){
+			fireSolenoids[i] = new Solenoid(RobotMap.PCM_ID, RobotMap.FIRE_SOLENOIDS[i]);
+			accuSolenoids[i] = new Solenoid(RobotMap.PCM_ID, RobotMap.ACCUMULATE_SOLENOIDS[i]);
 		}
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new RestingCommand());
+    	this.setDefaultCommand(new RestingCommand());
     }
     
-    public void accumulateOnAll(){
-    	for(int i=0;i<4;i++){
-    		aSoles[i][0].set(true);
-    		aSoles[i][1].set(false);
+    public void fire(Solenoids soleID){
+    	switch(soleID){
+	    	case ALL_FIRE:
+	    		for(Solenoid sole : fireSolenoids) sole.set(true);
+	    		break;
+	    	case TOP_LEFT_FIRE:
+	    		fireSolenoids[2].set(true);
+	    		break;
+	    	case TOP_RIGHT_FIRE:
+	    		fireSolenoids[0].set(true);
+	    		break;
+	    	case BOT_LEFT_FIRE:
+	    		fireSolenoids[3].set(true);
+	    		break;
+	    	case BOT_RIGHT_FIRE:
+	    		fireSolenoids[1].set(true);
+	    		break;
+	    	default:
+	    		System.out.println("WARNING (fire): An invalid Solenoid ID was entered. Please check the code for any errors.");
     	}
     }
     
-    public void accumulateOffAll(){
-    	for(int i=0;i<4;i++){
-    		aSoles[i][0].set(false);
-    		aSoles[i][1].set(true);
-    	}
-    } 
-    
-    public void accumulateOn(int soleNumber){
-    	aSoles[soleNumber][0].set(true);
-    	aSoles[soleNumber][1].set(false);
-    }
-    
-    public void accumulateOff(int soleNumber){
-    	aSoles[soleNumber][0].set(false);
-    	aSoles[soleNumber][1].set(true);
-    }
-    
-    public void fireOnAll(){
-    	for(int i=0;i<4;i++){
-    		fSoles[i][0].set(true);
-    		fSoles[i][1].set(false);
+    public void accumulate(Solenoids soleID){
+    	switch(soleID){
+	    	case ALL_ACCU:
+	    		for(Solenoid sole : accuSolenoids) sole.set(true);
+	    		break;
+	    	case TOP_LEFT_ACCU:
+	    		accuSolenoids[2].set(true);
+	    		break;
+	    	case TOP_RIGHT_ACCU:
+	    		accuSolenoids[0].set(true);
+	    		break;
+	    	case BOT_LEFT_ACCU:
+	    		accuSolenoids[3].set(true);
+	    		break;
+	    	case BOT_RIGHT_ACCU:
+	    		accuSolenoids[1].set(true);
+	    		break;
+	    	default:
+	    		System.out.println("WARNING (accumulate): An invalid Solenoid ID was entered. Please check the code for any errors.");
     	}
     }
     
-    public void fireOffAll(){
-    	for(int i=0;i<4;i++){
-    		fSoles[i][0].set(false);
-    		fSoles[i][1].set(true);
-    	}
-    } 
-    
-    public void fireOn(int soleNumber){
-    	fSoles[soleNumber][0].set(true);
-    	fSoles[soleNumber][1].set(false);
+    public void closeFire(){
+    	for(Solenoid sole : fireSolenoids) sole.set(false);
     }
     
-    public void fireOff(int soleNumber){
-    	fSoles[soleNumber][0].set(false);
-    	fSoles[soleNumber][1].set(true);
+    public void closeAccu(){
+    	for(Solenoid sole : accuSolenoids) sole.set(false);
     }
 }
 
