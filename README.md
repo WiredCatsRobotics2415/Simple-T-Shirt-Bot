@@ -14,8 +14,8 @@ The all 4 of the firing solenoids for the robot now trigger to release the press
 
 <ul>
   <li>Implement deadband/tuning calcuations to improve drive control</li>
-  <li>Enable single-fire and "all-fire" options for firing the barrels</li>
-  <li>Implementing code for the accumulation solenoids</li>
-  <li>Geneal Code lean up</li>
+  <li><strike>Enable single-fire and "all-fire" options for firing the barrels</strike> Needs testing</li>
+  <li>Implementing code for the accumulation solenoids (started-WIP)</li>
+  <li>Geneal Code lean up (started-WIP)</li>
   <li>Testing</li>
 </ul>
