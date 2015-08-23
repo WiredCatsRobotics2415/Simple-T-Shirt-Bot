@@ -2,6 +2,7 @@
 package org.usfirst.frc.team2415.robot;
 
 import org.usfirst.frc.team2415.robot.subsystems.*;
+import org.usfirst.frc.team2415.robot.commands.general.RunSystemsCommand;
 import org.usfirst.frc.team2415.robot.commands.launcher.*;
 import org.usfirst.frc.team2415.robot.subsystems.LauncherSubsystem.Solenoids;
 
@@ -9,7 +10,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -49,7 +50,24 @@ public class Robot extends IterativeRobot {
 		gamepad.x_button.whenPressed(new FireCommand(Solenoids.BOT_LEFT_FIRE));
 		gamepad.y_button.whenPressed(new FireCommand(Solenoids.TOP_LEFT_FIRE));
 		
+		//Displays which commands are being run
 		SmartDashboard.putData(Scheduler.getInstance());
+		
+		//Displays the status of the Launcher Subsystem
+		SmartDashboard.putData(launcherSubsystem);
+		
+		//Buttons to fire all of the cannons and run systems
+		SmartDashboard.putData("Run Systems", new RunSystemsCommand());
+		SmartDashboard.putData("Fire All The Cannons", new FireCommand(Solenoids.ALL_FIRE));
+		SmartDashboard.putData("Fire Top Right Cannon", new FireCommand(Solenoids.TOP_RIGHT_FIRE));
+		SmartDashboard.putData("Fire Top Left Cannon", new FireCommand(Solenoids.TOP_LEFT_FIRE));
+		SmartDashboard.putData("Fire Bottom Right Cannon", new FireCommand(Solenoids.BOT_RIGHT_FIRE));
+		SmartDashboard.putData("Fire Bottom Left Cannon", new FireCommand(Solenoids.BOT_LEFT_FIRE));
+		
+		
+		//Speed Gauges
+		SmartDashboard.putNumber("Left Speed", Robot.driveSubystem.getLeftTal());
+		SmartDashboard.putNumber("Right Speed", -Robot.driveSubystem.getLeftTal());
     }
 	
 	public void disabledPeriodic() {

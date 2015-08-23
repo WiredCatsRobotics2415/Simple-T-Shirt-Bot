@@ -14,6 +14,7 @@ public class FireCommand extends Command {
 	long startTime;
 	boolean isDone = false;
 	
+	
     public FireCommand(Solenoids soleID) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.launcherSubsystem);
