@@ -40,6 +40,8 @@ public class Robot extends IterativeRobot {
 		gamepad = new WiredCatGamepad(0);
 		
 		compressor = new Compressor(RobotMap.PCM_ID);
+		//Testing testing 123
+		SmartDashboard.putBoolean("Is Compressor On?", compressor.enabled());
 		
 		driveSubystem = new DriveSubsystem();
 		launcherSubsystem = new LauncherSubsystem();
