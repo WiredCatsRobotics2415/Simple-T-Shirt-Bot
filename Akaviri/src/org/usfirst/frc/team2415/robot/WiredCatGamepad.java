@@ -45,10 +45,10 @@ public class WiredCatGamepad extends Joystick{
 	}
 	
 	public double rightY(){
-		return this.getRawAxis(3);
+		return this.getRawAxis(5);
 	}
 	
 	public double rightX(){
-		return this.getRawAxis(2);
+		return this.getRawAxis(4);
 	}
 }
