@@ -10,21 +10,19 @@ import org.usfirst.frc.team2415.robot.subsystems.LauncherSubsystem.Solenoids;
  */
 public class FireCommand extends Command {
 	
-	Solenoids soleID;
 	long startTime;
 	boolean isDone = false;
 	
-	
-    public FireCommand(Solenoids soleID) {
+    public FireCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.launcherSubsystem);
-        this.soleID = soleID;
         startTime = System.currentTimeMillis();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.launcherSubsystem.fire(soleID);
+    	if(Robot.launcherSubsystem.firing) Robot.launcherSubsystem.close();
+    	else Robot.launcherSubsystem.fire();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -39,14 +37,12 @@ public class FireCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.launcherSubsystem.closeFire();
-    	Robot.launcherSubsystem.closeAccu();
+    	Robot.launcherSubsystem.close();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.launcherSubsystem.closeFire();
-    	Robot.launcherSubsystem.closeAccu();
+    	Robot.launcherSubsystem.close();
     }
 }

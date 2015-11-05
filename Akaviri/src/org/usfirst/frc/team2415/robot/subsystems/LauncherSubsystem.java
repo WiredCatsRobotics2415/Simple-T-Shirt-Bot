@@ -25,6 +25,8 @@ public class LauncherSubsystem extends Subsystem {
 	private Solenoid[] fireSolenoids;
 	private Solenoid[] accuSolenoids;
 	
+	public static boolean firing = false;
+	
 	public LauncherSubsystem(){
 		fireSolenoids = accuSolenoids = new Solenoid[4];
 		
@@ -38,6 +40,21 @@ public class LauncherSubsystem extends Subsystem {
     	this.setDefaultCommand(new RestingCommand());
     }
     
+    public void fire(){
+    	for(int i=0; i<fireSolenoids.length; i++){
+    		fireSolenoids[i].set(true);
+    	}
+    	firing = true;
+    }
+    
+    public void close(){
+    	for(int i=0; i<fireSolenoids.length; i++){
+    		fireSolenoids[i].set(false);
+    	}
+    	firing = false;
+    }
+    
+    /*
     public void fire(Solenoids soleID){
     	switch(soleID){
 	    	case ALL_FIRE:
@@ -89,5 +106,6 @@ public class LauncherSubsystem extends Subsystem {
     public void closeAccu(){
     	for(Solenoid sole : accuSolenoids) sole.set(false);
     }
+    */
 }
 

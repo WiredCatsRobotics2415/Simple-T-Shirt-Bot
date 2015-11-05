@@ -44,12 +44,15 @@ public class Robot extends IterativeRobot {
 		driveSubystem = new DriveSubsystem();
 		launcherSubsystem = new LauncherSubsystem();
 		
+		gamepad.a_button.whenPressed(new FireCommand());
+		
+		/*
 		gamepad.rightTrigger.whenPressed(new FireCommand(Solenoids.ALL_FIRE));
 		gamepad.a_button.whenPressed(new FireCommand(Solenoids.BOT_RIGHT_FIRE));
 		gamepad.b_button.whenPressed(new FireCommand(Solenoids.TOP_RIGHT_FIRE));
 		gamepad.x_button.whenPressed(new FireCommand(Solenoids.BOT_LEFT_FIRE));
 		gamepad.y_button.whenPressed(new FireCommand(Solenoids.TOP_LEFT_FIRE));
-		
+		*/
 		//Displays which commands are being run
 		SmartDashboard.putData(Scheduler.getInstance());
 		
@@ -58,12 +61,13 @@ public class Robot extends IterativeRobot {
 		
 		//Buttons to fire all of the cannons and run systems
 		SmartDashboard.putData("Run Systems", new RunSystemsCommand());
+		/*
 		SmartDashboard.putData("Fire All The Cannons", new FireCommand(Solenoids.ALL_FIRE));
 		SmartDashboard.putData("Fire Top Right Cannon", new FireCommand(Solenoids.TOP_RIGHT_FIRE));
 		SmartDashboard.putData("Fire Top Left Cannon", new FireCommand(Solenoids.TOP_LEFT_FIRE));
 		SmartDashboard.putData("Fire Bottom Right Cannon", new FireCommand(Solenoids.BOT_RIGHT_FIRE));
 		SmartDashboard.putData("Fire Bottom Left Cannon", new FireCommand(Solenoids.BOT_LEFT_FIRE));
-		
+		*/
 		
 		//Speed Gauges
 		SmartDashboard.putNumber("Left Speed", Robot.driveSubystem.getLeftTal());
