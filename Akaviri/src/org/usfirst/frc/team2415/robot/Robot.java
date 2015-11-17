@@ -66,7 +66,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Fire Bottom Right Cannon", new FireCommand(Solenoids.BOT_RIGHT_FIRE));
 		SmartDashboard.putData("Fire Bottom Left Cannon", new FireCommand(Solenoids.BOT_LEFT_FIRE));
 		
-		
 		//Speed Gauges
 		SmartDashboard.putNumber("Left Speed", Robot.driveSubystem.getLeftTal());
 		SmartDashboard.putNumber("Right Speed", -Robot.driveSubystem.getLeftTal());
