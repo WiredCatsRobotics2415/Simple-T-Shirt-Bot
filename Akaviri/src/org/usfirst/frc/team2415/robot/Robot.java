@@ -2,7 +2,6 @@
 package org.usfirst.frc.team2415.robot;
 
 import org.usfirst.frc.team2415.robot.subsystems.*;
-import org.usfirst.frc.team2415.robot.commands.general.RunSystemsCommand;
 import org.usfirst.frc.team2415.robot.commands.launcher.*;
 import org.usfirst.frc.team2415.robot.subsystems.LauncherSubsystem.Solenoids;
 
@@ -44,30 +43,17 @@ public class Robot extends IterativeRobot {
 		driveSubystem = new DriveSubsystem();
 		launcherSubsystem = new LauncherSubsystem();
 		
-		gamepad.a_button.whenPressed(new FireCommand());
+		gamepad.leftBumper.whenPressed(new FireCommand());
+		gamepad.a_button.whenPressed(new FireBottomLeftCannon());
+		gamepad.b_button.whenPressed(new FireBottomRightCannon());
+		gamepad.y_button.whenPressed(new FireTopRightCannon());
+		gamepad.x_button.whenPressed(new FireTopLeftCannon());
 		
-		/*
-		gamepad.rightTrigger.whenPressed(new FireCommand(Solenoids.ALL_FIRE));
-		gamepad.a_button.whenPressed(new FireCommand(Solenoids.BOT_RIGHT_FIRE));
-		gamepad.b_button.whenPressed(new FireCommand(Solenoids.TOP_RIGHT_FIRE));
-		gamepad.x_button.whenPressed(new FireCommand(Solenoids.BOT_LEFT_FIRE));
-		gamepad.y_button.whenPressed(new FireCommand(Solenoids.TOP_LEFT_FIRE));
-		*/
 		//Displays which commands are being run
 		SmartDashboard.putData(Scheduler.getInstance());
 		
-		//Displays the status of the Launcher Subsystem
+		//Displays the status of the Subsystems
 		SmartDashboard.putData(launcherSubsystem);
-		
-		//Buttons to fire all of the cannons and run systems
-		SmartDashboard.putData("Run Systems", new RunSystemsCommand());
-		/*
-		SmartDashboard.putData("Fire All The Cannons", new FireCommand(Solenoids.ALL_FIRE));
-		SmartDashboard.putData("Fire Top Right Cannon", new FireCommand(Solenoids.TOP_RIGHT_FIRE));
-		SmartDashboard.putData("Fire Top Left Cannon", new FireCommand(Solenoids.TOP_LEFT_FIRE));
-		SmartDashboard.putData("Fire Bottom Right Cannon", new FireCommand(Solenoids.BOT_RIGHT_FIRE));
-		SmartDashboard.putData("Fire Bottom Left Cannon", new FireCommand(Solenoids.BOT_LEFT_FIRE));
-		*/
 		
 		//Speed Gauges
 		SmartDashboard.putNumber("Left Speed", Robot.driveSubystem.getLeftTal());
