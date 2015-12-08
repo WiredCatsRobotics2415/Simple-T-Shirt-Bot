@@ -44,6 +44,7 @@ public class LauncherSubsystem extends Subsystem {
     
     public void fireIndividual(int nipples){
     	fireSolenoids[nipples].set(true);
+    	firing = true;
     }
     
     public void close(){
@@ -55,6 +56,7 @@ public class LauncherSubsystem extends Subsystem {
     
     public void closeIndividual(int nipples){
     	fireSolenoids[nipples].set(false);
+    	firing = false;
     }
     
 }
