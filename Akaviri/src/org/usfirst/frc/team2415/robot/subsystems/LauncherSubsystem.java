@@ -19,43 +19,43 @@ public class LauncherSubsystem extends Subsystem {
 							BOT_RIGHT_FIRE, ALL_FIRE
 	}
 	
-	private Solenoid[] fireSolenoids;
-	
-	public static boolean firing = false;
+	private Solenoid[] solenoids;
+	public boolean firing;
 	
 	public LauncherSubsystem(){
-		fireSolenoids = new Solenoid[4];
+		solenoids = new Solenoid[4];
 		
 		for(int i=0; i<4; i++){
-			fireSolenoids[i] = new Solenoid(RobotMap.PCM_ID, RobotMap.FIRE_SOLENOIDS[i]);
+			solenoids[i] = new Solenoid(RobotMap.PCM_ID, RobotMap.FIRE_SOLENOIDS[i]);
 		}
+		closeAll();
 	}
 	
     public void initDefaultCommand() {
     	this.setDefaultCommand(new RestingCommand());
     }
     
-    public void fire(){
-    	for(int i=0; i<fireSolenoids.length; i++){
-    		fireSolenoids[i].set(true);
+    public void fireAll(){
+    	for(int i=0; i<solenoids.length; i++){
+    		solenoids[i].set(true);
     	}
     	firing = true;
     }
     
-    public void fireIndividual(int nipples){
-    	fireSolenoids[nipples].set(true);
+    public void fire(int barrelID){
+    	solenoids[barrelID].set(true);
     	firing = true;
     }
     
-    public void close(){
-    	for(int i=0; i<fireSolenoids.length; i++){
-    		fireSolenoids[i].set(false);
+    public void closeAll(){
+    	for(int i=0; i<solenoids.length; i++){
+    		solenoids[i].set(false);
     	}
     	firing = false;
     }
     
-    public void closeIndividual(int nipples){
-    	fireSolenoids[nipples].set(false);
+    public void close(int barrelID){
+    	solenoids[barrelID].set(false);
     	firing = false;
     }
     

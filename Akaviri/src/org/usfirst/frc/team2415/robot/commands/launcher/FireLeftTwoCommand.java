@@ -7,34 +7,43 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class FireBottomRightCannon extends Command {
-
-    public FireBottomRightCannon() {
+public class FireLeftTwoCommand extends Command {
+	
+	private long startTime;
+	private boolean isDone = false;
+	
+    public FireLeftTwoCommand() {
+        // Use requires() here to declare subsystem dependencies
         requires(Robot.launcherSubsystem);
+        startTime = System.currentTimeMillis();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.launcherSubsystem.fire(2);
+    	Robot.launcherSubsystem.fire(0);
+    	Robot.launcherSubsystem.fire(3);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if((System.currentTimeMillis() - startTime)/1000.0 >= 0.5) isDone = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isDone;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.launcherSubsystem.close(2);
+    	Robot.launcherSubsystem.close(0);
+    	Robot.launcherSubsystem.close(3);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.launcherSubsystem.close(2);
+    	Robot.launcherSubsystem.close(0);
+    	Robot.launcherSubsystem.close(3);
     }
 }

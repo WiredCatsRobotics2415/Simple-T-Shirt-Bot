@@ -22,7 +22,7 @@ public class ArcadeDriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	double leftY = Robot.gamepad.leftY();
+    	double leftY = -Robot.gamepad.leftY();
     	double rightX = Robot.gamepad.rightX();
     	
     	double left = leftY + rightX;
