@@ -17,7 +17,7 @@ public class FireBarrels3And4Command extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.launcherSubsystem.fire(0);
-    	Robot.launcherSubsystem.fire(4);
+    	Robot.launcherSubsystem.fire(1);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -32,13 +32,13 @@ public class FireBarrels3And4Command extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.launcherSubsystem.close(0);
-    	Robot.launcherSubsystem.close(4);
+    	Robot.launcherSubsystem.close(1);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.launcherSubsystem.close(0);
-    	Robot.launcherSubsystem.close(4);
+    	Robot.launcherSubsystem.close(1);
     }
 }

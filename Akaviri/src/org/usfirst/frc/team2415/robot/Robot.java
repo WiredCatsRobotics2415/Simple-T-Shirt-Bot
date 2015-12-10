@@ -55,8 +55,8 @@ public class Robot extends IterativeRobot {
 		gamepad.b_button.whenInactive(new CancelCommand());
 		gamepad.a_button.whenInactive(new CancelCommand());
 		gamepad.y_button.whenInactive(new CancelCommand());
-		gamepad.back_button.whenActive(new CancelCommand());
-		gamepad.start_button.whenActive(new CancelCommand());
+		gamepad.back_button.whenInactive(new CancelCommand());
+		gamepad.start_button.whenInactive(new CancelCommand());
 		
 		//Displays which commands are being run
 		SmartDashboard.putData(Scheduler.getInstance());

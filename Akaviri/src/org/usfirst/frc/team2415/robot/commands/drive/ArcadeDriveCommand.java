@@ -25,8 +25,8 @@ public class ArcadeDriveCommand extends Command {
     	double leftY = -Robot.gamepad.leftY();
     	double rightX = Robot.gamepad.rightX();
     	
-    	double left = leftY + rightX;
-    	double right =  leftY - rightX;
+    	double left = (leftY + rightX)*.6;
+    	double right =  (leftY - rightX)*.6;
     	
     	Robot.driveSubystem.setMotors(left, -right);
     }
