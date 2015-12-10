@@ -43,11 +43,16 @@ public class Robot extends IterativeRobot {
 		driveSubystem = new DriveSubsystem();
 		launcherSubsystem = new LauncherSubsystem();
 		
-		gamepad.leftBumper.whenPressed(new FireCommand());
-		gamepad.x_button.whenPressed(new FireBottomLeftCannon());
-		gamepad.b_button.whenPressed(new FireBottomRightCannon());
-		gamepad.a_button.whenPressed(new FireTopRightCannon());
-		gamepad.y_button.whenPressed(new FireTopLeftCannon());
+		gamepad.leftBumper.whenActive(new FireCommand());
+		gamepad.x_button.whenActive(new FireBottomLeftCannon());
+		gamepad.b_button.whenActive(new FireBottomRightCannon());
+		gamepad.a_button.whenActive(new FireTopRightCannon());
+		gamepad.y_button.whenActive(new FireTopLeftCannon());
+		gamepad.leftBumper.whenInactive(new BackCancelCommand());
+		gamepad.x_button.whenInactive(new BackCancelCommand());
+		gamepad.b_button.whenInactive(new BackCancelCommand());
+		gamepad.a_button.whenInactive(new BackCancelCommand());
+		gamepad.y_button.whenInactive(new BackCancelCommand());
 		
 		//Displays which commands are being run
 		SmartDashboard.putData(Scheduler.getInstance());
