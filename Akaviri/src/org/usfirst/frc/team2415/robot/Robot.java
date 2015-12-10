@@ -43,16 +43,20 @@ public class Robot extends IterativeRobot {
 		driveSubystem = new DriveSubsystem();
 		launcherSubsystem = new LauncherSubsystem();
 		
-		gamepad.leftBumper.whenActive(new FireCommand());
-		gamepad.x_button.whenActive(new FireBottomLeftCannon());
-		gamepad.b_button.whenActive(new FireBottomRightCannon());
-		gamepad.a_button.whenActive(new FireTopRightCannon());
-		gamepad.y_button.whenActive(new FireTopLeftCannon());
-		gamepad.leftBumper.whenInactive(new BackCancelCommand());
-		gamepad.x_button.whenInactive(new BackCancelCommand());
-		gamepad.b_button.whenInactive(new BackCancelCommand());
-		gamepad.a_button.whenInactive(new BackCancelCommand());
-		gamepad.y_button.whenInactive(new BackCancelCommand());
+		gamepad.leftBumper.whenActive(new FireAllCommand());
+		gamepad.x_button.whenActive(new FireBarrel1Command());
+		gamepad.b_button.whenActive(new FireBarrel2Command());
+		gamepad.a_button.whenActive(new FireBarrel4Command());
+		gamepad.y_button.whenActive(new FireBarrel3Command());
+		gamepad.back_button.whenActive(new FireBarrels1And2Command());
+		gamepad.start_button.whenActive(new FireBarrels3And4Command());
+		gamepad.leftBumper.whenInactive(new CancelCommand());
+		gamepad.x_button.whenInactive(new CancelCommand());
+		gamepad.b_button.whenInactive(new CancelCommand());
+		gamepad.a_button.whenInactive(new CancelCommand());
+		gamepad.y_button.whenInactive(new CancelCommand());
+		gamepad.back_button.whenActive(new CancelCommand());
+		gamepad.start_button.whenActive(new CancelCommand());
 		
 		//Displays which commands are being run
 		SmartDashboard.putData(Scheduler.getInstance());

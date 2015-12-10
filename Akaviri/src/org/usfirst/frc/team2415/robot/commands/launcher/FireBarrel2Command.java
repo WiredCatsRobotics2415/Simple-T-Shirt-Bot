@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class FireBottomRightCannon extends Command {
+public class FireBarrel2Command extends Command {
 
-    public FireBottomRightCannon() {
+    public FireBarrel2Command() {
         requires(Robot.launcherSubsystem);
     }
 
