@@ -16,6 +16,8 @@ public class FireBarrel4Command extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.launcherSubsystem.fire(1);
+    	Robot.launcherSubsystem.fireCount[3]++;
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run

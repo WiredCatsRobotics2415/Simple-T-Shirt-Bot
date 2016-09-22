@@ -1,15 +1,22 @@
 
 package org.usfirst.frc.team2415.robot;
 
-import org.usfirst.frc.team2415.robot.subsystems.*;
-import org.usfirst.frc.team2415.robot.commands.launcher.*;
-import org.usfirst.frc.team2415.robot.subsystems.LauncherSubsystem.Solenoids;
+import org.usfirst.frc.team2415.robot.commands.launcher.CancelCommand;
+import org.usfirst.frc.team2415.robot.commands.launcher.FireAllCommand;
+import org.usfirst.frc.team2415.robot.commands.launcher.FireBarrel1Command;
+import org.usfirst.frc.team2415.robot.commands.launcher.FireBarrel2Command;
+import org.usfirst.frc.team2415.robot.commands.launcher.FireBarrel3Command;
+import org.usfirst.frc.team2415.robot.commands.launcher.FireBarrel4Command;
+import org.usfirst.frc.team2415.robot.commands.launcher.FireBarrels1And2Command;
+import org.usfirst.frc.team2415.robot.commands.launcher.FireBarrels3And4Command;
+import org.usfirst.frc.team2415.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team2415.robot.subsystems.LauncherSubsystem;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +33,7 @@ public class Robot extends IterativeRobot {
 	public static LauncherSubsystem launcherSubsystem;
 	
 	public static WiredCatGamepad gamepad;
+	public static WiredCatJoystick operator;
 	
 	private Compressor compressor;
 
@@ -37,6 +45,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		gamepad = new WiredCatGamepad(0);
+		operator = new WiredCatJoystick(1);
 		
 		compressor = new Compressor(RobotMap.PCM_ID);
 		
@@ -57,6 +66,24 @@ public class Robot extends IterativeRobot {
 		gamepad.y_button.whenInactive(new CancelCommand());
 		gamepad.back_button.whenInactive(new CancelCommand());
 		gamepad.start_button.whenInactive(new CancelCommand());
+		
+		operator.buttons[11].whenActive(new FireBarrel3Command());
+		operator.buttons[11].whenInactive(new CancelCommand());
+		operator.buttons[10].whenActive(new FireBarrel4Command());
+		operator.buttons[10].whenInactive(new CancelCommand());
+		operator.buttons[7].whenActive(new FireBarrel1Command());
+		operator.buttons[7].whenInactive(new CancelCommand());
+		operator.buttons[6].whenActive(new FireBarrel2Command());
+		operator.buttons[6].whenInactive(new CancelCommand());
+
+		operator.buttons[8].whenActive(new FireBarrels1And2Command());
+		operator.buttons[8].whenInactive(new CancelCommand());
+		operator.buttons[9].whenActive(new FireBarrels3And4Command());
+		operator.buttons[9].whenInactive(new CancelCommand());
+		
+		operator.buttons[3].whenActive(new FireAllCommand());
+		operator.buttons[3].whenInactive(new CancelCommand());
+		
 		
 		//Displays which commands are being run
 		SmartDashboard.putData(Scheduler.getInstance());
@@ -111,5 +138,9 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    public void updateStatus(){
+    	launcherSubsystem.updateStatus();
     }
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2415.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Solenoid;
 
 import org.usfirst.frc.team2415.robot.RobotMap;
@@ -19,13 +20,15 @@ public class LauncherSubsystem extends Subsystem {
 							BOT_RIGHT_FIRE, ALL_FIRE
 	}
 	
+	private int numOfSolenoids = RobotMap.FIRE_SOLENOIDS.length;
 	private Solenoid[] solenoids;
 	public boolean firing;
+	public int[] fireCount = {0,0,0,0};
 	
 	public LauncherSubsystem(){
-		solenoids = new Solenoid[4];
+		solenoids = new Solenoid[numOfSolenoids];
 		
-		for(int i=0; i<4; i++){
+		for(int i=0; i<solenoids.length; i++){
 			solenoids[i] = new Solenoid(RobotMap.PCM_ID, RobotMap.FIRE_SOLENOIDS[i]);
 		}
 		closeAll();
@@ -57,6 +60,13 @@ public class LauncherSubsystem extends Subsystem {
     public void close(int barrelID){
     	solenoids[barrelID].set(false);
     	firing = false;
+    }
+    
+    public void updateStatus(){
+    	SmartDashboard.putNumber("Barrel 1", fireCount[0]);
+    	SmartDashboard.putNumber("Barrel 2", fireCount[1]);
+    	SmartDashboard.putNumber("Barrel 3", fireCount[2]);
+    	SmartDashboard.putNumber("Barrel 4", fireCount[3]);
     }
     
 }

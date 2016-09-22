@@ -23,6 +23,10 @@ public class FireAllCommand extends Command {
     protected void initialize() {
     	if(Robot.launcherSubsystem.firing) Robot.launcherSubsystem.closeAll();
     	else Robot.launcherSubsystem.fireAll();
+    	Robot.launcherSubsystem.fireCount[0]++;
+    	Robot.launcherSubsystem.fireCount[1]++;
+    	Robot.launcherSubsystem.fireCount[2]++;
+    	Robot.launcherSubsystem.fireCount[3]++;
     }
 
     // Called repeatedly when this Command is scheduled to run
