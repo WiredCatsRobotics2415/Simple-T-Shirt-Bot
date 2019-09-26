@@ -21,7 +21,7 @@ public class Robot extends TimedRobot {
   private static Compressor compressor = new Compressor(RobotMap.PCM_ID);
   
   public static Drivetrain drivetrain = new Drivetrain();
-  public static ShirtCanon canon = new ShirtCanon();
+  public static ShirtCannon cannon = new ShirtCannon();
 
   @Override
   public void robotInit() {
@@ -52,17 +52,17 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     drivetrain.drive(gamepad.getRawAxis(1), gamepad.getRawAxis(2));
     if(gamepad.getBumper(Hand.kRight)) {
-      canon.shootAll();
+      cannon.shootAll();
     } else if(gamepad.getAButton()) {
-      canon.shootIndividual(0);
+      cannon.shootIndividual(0);
     } else if(gamepad.getBButton()) {
-      canon.shootIndividual(1);
+      cannon.shootIndividual(1);
     } else if(gamepad.getXButton()) {
-      canon.shootIndividual(2);
+      cannon.shootIndividual(2);
     } else if(gamepad.getYButton()) {
-      canon.shootIndividual(3);
+      cannon.shootIndividual(3);
     }
-    canon.update();
+    cannon.update();
   }
 
   /**

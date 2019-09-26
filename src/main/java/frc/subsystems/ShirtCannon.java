@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 
-public class ShirtCanon extends Subsystem {
+public class ShirtCannon extends Subsystem {
   public final static long shotDelay = 500;
   public final static long shotDuration = 200; 
 
@@ -19,7 +19,7 @@ public class ShirtCanon extends Subsystem {
   long[] shotTimes;
   boolean[] shooterStatus;
 
-  public ShirtCanon() {
+  public ShirtCannon() {
     shooters = new Solenoid[RobotMap.SOLENOID_IDS.length];
     shotTimes = new long[shooters.length];
     shooterStatus = new boolean[shooters.length];
