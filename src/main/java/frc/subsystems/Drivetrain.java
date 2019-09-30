@@ -9,19 +9,18 @@ package frc.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.Talon;
 
 import frc.robot.*;
 
 public class Drivetrain extends Subsystem {
   public static final double DEADBAND = 0.05;
 
-  private WPI_TalonSRX leftTalon, rightTalon;
+  private Talon leftTalon, rightTalon;
 
   public Drivetrain() {
-    this.leftTalon = new WPI_TalonSRX(RobotMap.LEFT_TALON);
-    this.rightTalon = new WPI_TalonSRX(RobotMap.RIGHT_TALON);
+    this.leftTalon = new Talon(RobotMap.LEFT_TALON);
+    this.rightTalon = new Talon(RobotMap.RIGHT_TALON);
   }
 
   public void drive(double throttle, double turn) {
@@ -31,8 +30,9 @@ public class Drivetrain extends Subsystem {
     if(Math.abs(turn) < DEADBAND) {
       turn = 0;
     }
-    this.leftTalon.set(ControlMode.PercentOutput, throttle+turn);
-    this.rightTalon.set(ControlMode.PercentOutput, throttle-turn);
+
+    this.leftTalon.set(throttle+turn);
+    this.rightTalon.set(throttle-turn);
   }
 
   @Override
