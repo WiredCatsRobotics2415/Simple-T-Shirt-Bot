@@ -23,7 +23,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    System.out.println("test");
     drivetrain.drive(0,0);
     compressor.start();
   }
@@ -48,7 +47,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    drivetrain.drive(gamepad.getRawAxis(1), gamepad.getRawAxis(2));
+    drivetrain.drive(gamepad.getRawAxis(1), gamepad.getRawAxis(4));
     if(gamepad.getBumper(Hand.kRight)) {
       cannon.shootAll();
     } else if(gamepad.getAButton()) {
