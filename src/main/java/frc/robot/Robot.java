@@ -24,6 +24,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     drivetrain.drive(0,0);
+    compressor.clearAllPCMStickyFaults();
+    compressor.setClosedLoopControl(true);
     compressor.start();
   }
 
@@ -47,17 +49,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    compressor.start();
+    cannon.printAll();
     drivetrain.drive(gamepad.getRawAxis(1), gamepad.getRawAxis(4));
     if(gamepad.getBumper(Hand.kRight)) {
       cannon.shootAll();
     } else if(gamepad.getAButton()) {
-      cannon.shootIndividual(0);
+      cannon.shootRightTop();
     } else if(gamepad.getBButton()) {
-      cannon.shootIndividual(1);
+      cannon.shootRightBottom();
     } else if(gamepad.getXButton()) {
-      cannon.shootIndividual(2);
+      cannon.shootLeftTop();
     } else if(gamepad.getYButton()) {
-      cannon.shootIndividual(3);
+      cannon.shootLeftBottom();
     }
     cannon.update();
   }

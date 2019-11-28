@@ -9,48 +9,110 @@ package frc.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class ShirtCannon extends Subsystem {
   public final static long shotDelay = 500;
   public final static long shotDuration = 200; 
 
-  Solenoid[] shooters;
-  long[] shotTimes;
-  boolean[] shooterStatus;
+  private DoubleSolenoid rightShooters, leftShooters;
+  private long rightLastFireTime, leftLastFireTime;
+  private boolean rightTopQueue, rightBottomQueue, leftTopQueue, leftBottomQueue;
 
   public ShirtCannon() {
-    shooters = new Solenoid[RobotMap.SOLENOID_IDS.length];
-    shotTimes = new long[shooters.length];
-    shooterStatus = new boolean[shooters.length];
-    for(int i = 0; i < shooters.length; i++) {
-      shooters[i] = new Solenoid(RobotMap.SOLENOID_IDS[i]);
-    }
+    this.rightShooters = new DoubleSolenoid(RobotMap.RIGHT_SOLENOID_TOP, RobotMap.RIGHT_SOLENOID_BOTTOM);
+    this.leftShooters = new DoubleSolenoid(RobotMap.LEFT_SOLENOID_TOP, RobotMap.LEFT_SOLENOID_BOTTOM);
+    this.rightShooters.set(DoubleSolenoid.Value.kOff);
+    this.leftShooters.set(DoubleSolenoid.Value.kOff);
+
+    this.rightLastFireTime = System.currentTimeMillis();
+    this.leftLastFireTime = System.currentTimeMillis();
+
+    this.rightTopQueue = false;
+    this.rightBottomQueue = false;
+    this.leftTopQueue = false;
+    this.leftBottomQueue = false;
   }
 
   public void update() {
-    for(int i = 0; i < shooters.length; i++) {
-      if(shooterStatus[i] == true) {
-        if(System.currentTimeMillis()- shotTimes[i] > shotDuration) {
-          shooters[i].set(false);
-          shooterStatus[i] = false;
+    if(rightShooters.get() != DoubleSolenoid.Value.kOff) {
+      if(System.currentTimeMillis() - shotDuration > rightLastFireTime) {
+        if(rightTopQueue) {
+          rightShooters.set(DoubleSolenoid.Value.kForward);
+          rightTopQueue = false;
+          rightLastFireTime = System.currentTimeMillis();
+        } else if(rightBottomQueue) {
+          rightShooters.set(DoubleSolenoid.Value.kReverse);
+          rightBottomQueue = false;
+          rightLastFireTime = System.currentTimeMillis();
+        } else {
+          rightShooters.set(DoubleSolenoid.Value.kOff);
+        }
+      }
+    }
+    if(leftShooters.get() != DoubleSolenoid.Value.kOff) {
+      if(System.currentTimeMillis() - shotDuration > leftLastFireTime) {
+        if(leftTopQueue) {
+          leftShooters.set(DoubleSolenoid.Value.kForward);
+          leftTopQueue = false;
+          leftLastFireTime = System.currentTimeMillis();
+        } else if(leftBottomQueue) {
+          leftShooters.set(DoubleSolenoid.Value.kReverse);
+          leftBottomQueue = false;
+          leftLastFireTime = System.currentTimeMillis();
+        } else {
+          leftShooters.set(DoubleSolenoid.Value.kOff);
         }
       }
     }
   }
 
-  public void shootIndividual(int index) {
-    if(index >= shooters.length) return;
-    if(System.currentTimeMillis() - shotDelay < shotTimes[index]) return;
-    shooters[index].set(true);
-    shotTimes[index] = System.currentTimeMillis();
-    shooterStatus[index] = true;
+  public void shootRightTop() {
+    if(rightShooters.get() == DoubleSolenoid.Value.kReverse) {
+      rightTopQueue = true;
+    } else if(System.currentTimeMillis() - shotDelay > rightLastFireTime) {
+      rightShooters.set(DoubleSolenoid.Value.kForward);
+      rightLastFireTime = System.currentTimeMillis();
+    }
+  }
+
+  public void shootRightBottom() {
+    if(rightShooters.get() == DoubleSolenoid.Value.kForward) {
+      rightBottomQueue = true;
+    } else if(System.currentTimeMillis() - shotDelay > rightLastFireTime) {
+      rightShooters.set(DoubleSolenoid.Value.kReverse);
+      rightLastFireTime = System.currentTimeMillis();
+    }
+  }
+
+  public void shootLeftTop() {
+    if(leftShooters.get() == DoubleSolenoid.Value.kReverse) {
+      leftTopQueue = true;
+    } else if(System.currentTimeMillis() - shotDelay > leftLastFireTime) {
+      leftShooters.set(DoubleSolenoid.Value.kForward);
+      leftLastFireTime = System.currentTimeMillis();
+    }
+  }
+
+  public void shootLeftBottom() {
+    if(leftShooters.get() == DoubleSolenoid.Value.kForward) {
+      leftBottomQueue = true;
+    } else if(System.currentTimeMillis() - shotDelay > leftLastFireTime) {
+      leftShooters.set(DoubleSolenoid.Value.kReverse);
+      leftLastFireTime = System.currentTimeMillis();
+    }
   }
 
   public void shootAll() {
-    for(int i = 0; i < shooters.length; i++) {
-      shootIndividual(i);
-    }
+    shootRightTop();
+    shootRightBottom();
+    shootLeftTop();
+    shootLeftBottom();
+  }
+
+  public void printAll() {
+    System.out.println(""+rightShooters.get()+leftShooters.get());
   }
 
   @Override
