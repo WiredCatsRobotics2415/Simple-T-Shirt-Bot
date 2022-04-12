@@ -19,10 +19,15 @@ public class OI {
     }
 
     public double getRotation(){
-        if (Math.abs(this.controller.getRawAxis(2)) < DEADBAND) {
+        if (Math.abs(this.controller.getRawAxis(4)) < DEADBAND) {
             return 0;
         } else {
-            return this.controller.getRawAxis(2);
+            return this.controller.getRawAxis(4);
         }
     }
+
+    public boolean getShooterButton(int button) {
+        return this.controller.getRawButtonPressed(button);
+    }
+
 }

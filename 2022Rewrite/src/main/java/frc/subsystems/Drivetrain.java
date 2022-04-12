@@ -9,16 +9,13 @@ public class Drivetrain {
 
     public Drivetrain() {
         leftTalon = new Talon(RobotMap.LEFT_TALONS);
+        leftTalon.setInverted(true);
         rightTalon = new Talon(RobotMap.RIGHT_TALONS); 
+        rightTalon.setInverted(false);
     }
     
     public void drive(double throttle, double turn) {
         leftTalon.set(throttle-turn);
         rightTalon.set(throttle+turn);
     }
-
-    
-
-
-    
 }

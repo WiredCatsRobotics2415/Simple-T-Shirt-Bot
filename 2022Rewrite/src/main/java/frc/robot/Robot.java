@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,12 +22,14 @@ public class Robot extends TimedRobot {
   Shooter shooter;
   Drivetrain drive;
   OI oi;
+  Compressor compressor;
   
   @Override
   public void robotInit() {
     shooter = new Shooter();
     drive = new Drivetrain();
     oi = new OI();
+    compressor = new Compressor(PneumaticsModuleType.CTREPCM);
   }
 
   /**
@@ -68,8 +72,17 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     drive.drive(oi.getThrottle(), oi.getRotation());
     if(oi.getShooterButton(1)){
-      shooter.fire(1);
-    } else if(OI.getShooterButton(2)){}
+        shooter.fire(0);
+    } else if(oi.getShooterButton(2)){
+        shooter.fire(1);
+    } else if (oi.getShooterButton(3)) {
+        shooter.fire(2);
+    } else if (oi.getShooterButton(4)) {
+        shooter.fire(3);
+    }
+
+    if(oi.getShooterButton(7)) shooter.closeAll();
+    if(oi.getShooterButton(8)) shooter.fireAll();
     
-  }
+    } 
 }

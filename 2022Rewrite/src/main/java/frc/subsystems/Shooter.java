@@ -5,14 +5,14 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class Shooter {
-    Solenoid topLeft, topRight, bottomLeft, bottomRight;
-    Solenoid[] solenoids = {topLeft, topRight, bottomLeft, bottomRight};
+    Solenoid[] solenoids;
 
     public Shooter() {
-        topLeft = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.FIRE_SOLENOID_1);
-        topRight = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.FIRE_SOLENOID_2);
-        bottomLeft = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.FIRE_SOLENOID_3);
-        bottomRight = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.FIRE_SOLENOID_4);
+        solenoids = new Solenoid[4];
+        solenoids[0] = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.FIRE_SOLENOID_1);
+        solenoids[1] = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.FIRE_SOLENOID_2);
+        solenoids[2] = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.FIRE_SOLENOID_3);
+        solenoids[3] = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.FIRE_SOLENOID_4);
     }
 
     public void fireAll() {
@@ -31,6 +31,8 @@ public class Shooter {
         solenoids[shooter].set(true);
     }
     
-    p
+    public void close(int shooter) {
+        solenoids[shooter].set(false);
+    }
     
 }
